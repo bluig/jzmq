@@ -56,9 +56,20 @@ public class ZMQ {
     public static final int POLLOUT = 2;
     public static final int POLLERR = 4;
 
+	// Devices - Experimental.                                                   
 
+	public static final int STREAMER = 1;
+	public static final int FORWARDER = 2;
+	public static final int QUEUE = 3;
+	
     public static Context context(int ioThreads) {
         return new Context (ioThreads);
+    }
+    
+    public static Device device(int type,
+                                Socket in_socket,
+                                Socket out_socket) {
+        return new Device (type, in_socket, out_socket);
     }
 
     /**
@@ -397,5 +408,28 @@ public class ZMQ {
         private Socket[] socket = null;
         private short[] event = null;
         private short[] revent = null;
+    }
+    
+        /**
+     * Inner class: Device.
+     */
+    public static class Device {
+    
+        /**
+         * Class constructor.
+         *
+         * @param device a Device type .
+         * @param in_socket a 0MQ Socket previously created.
+         * @param out_socket a 0MQ Socket previously created.
+         */
+        protected Device (int type,
+                          Socket in_socket,
+                          Socket out_socket) {
+            construct (type, in_socket, out_socket);
+        }
+
+        /** Initialize the JNI interface */
+        protected native void construct (int device,
+                                         Socket in_socket, Socket out_socket);
     }
 }
