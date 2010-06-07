@@ -185,6 +185,10 @@
 				RelativePath="..\..\..\src\Socket.cpp"
 				>
 			</File>
+                        <File
+				RelativePath="..\..\..\src\Device.cpp"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\src\util.cpp"
 				>
