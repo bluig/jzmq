@@ -9,13 +9,15 @@ JZMQ_CPP_FILES = \
 	Context.cpp \
 	Socket.cpp \
 	Poller.cpp \
+	Device.cpp \
 	util.cpp
 
 JZMQ_H_FILES = \
 	org_zeromq_ZMQ.h \
 	org_zeromq_ZMQ_Context.h \
 	org_zeromq_ZMQ_Socket.h \
-	org_zeromq_ZMQ_Poller.h
+	org_zeromq_ZMQ_Poller.h \
+	org_zeromq_ZMQ_Device.h 
 
 JZMQ_HPP_FILES = \
 	util.hpp
@@ -24,7 +26,8 @@ JZMQ_CLASS_FILES = \
 	org/zeromq/ZMQ.class \
 	org/zeromq/ZMQ$$Context.class \
 	org/zeromq/ZMQ$$Socket.class \
-	org/zeromq/ZMQ$$Poller.class
+	org/zeromq/ZMQ$$Poller.class \
+	org/zeromq/ZMQ$$Device.class 
 
 $(jarfile): $(dist_noinst_JAVA)
 	$(JAR) cf $(JARFLAGS) $@ org/zeromq/*.class
@@ -71,6 +74,10 @@ $(srcdir)/Socket.cpp: \
 
 $(srcdir)/Poller.cpp: \
 	org_zeromq_ZMQ_Poller.h \
+	$(JZMQ_HPP_FILES)
+
+$(srcdir)/Device.cpp: \
+	org_zeromq_ZMQ_Device.h \
 	$(JZMQ_HPP_FILES)
 
 $(srcdir)/util.cpp: \
