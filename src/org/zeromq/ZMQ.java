@@ -51,6 +51,10 @@ public class ZMQ {
     public static final int SNDBUF = 11;
     public static final int RCVBUF = 12;
 
+    // Send/Recv
+    public static final int NOBLOCK = 1;
+    public static final int SNDMORE = 2;
+
     // Polling types for a Poller.
     public static final int POLLIN = 1;
     public static final int POLLOUT = 2;
@@ -418,7 +422,7 @@ public class ZMQ {
         /**
          * Class constructor.
          *
-         * @param device a Device type .
+         * @param type a Device type .
          * @param in_socket a 0MQ Socket previously created.
          * @param out_socket a 0MQ Socket previously created.
          */
@@ -429,7 +433,8 @@ public class ZMQ {
         }
 
         /** Initialize the JNI interface */
-        protected native void construct (int device,
-                                         Socket in_socket, Socket out_socket);
+        protected native void construct (int type,
+                                         Socket in_socket, 
+                                         Socket out_socket);
     }
 }

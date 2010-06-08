@@ -20,6 +20,7 @@
 #include <assert.h>
 #include <errno.h>
 
+
 #include <zmq.h>
 
 #include "jzmq.hpp"
@@ -34,30 +35,30 @@ static void *fetch_socket (JNIEnv *env,
 /**
  * Called to construct a Java Device object.
  */
-JNIEXPORT void JNICALL Java_org_zeromq_ZMQ_00024Context_construct (JNIEnv *env,
+JNIEXPORT void JNICALL Java_org_zeromq_ZMQ_00024Device_construct (JNIEnv *env,
                                                                    jobject obj,
                                                                    jint type,
-                                                                   jobject insocket,
-                                                                   jobject outsocket)
+                                                                   jobject insocket_,
+                                                                   jobject outsocket_)
 {
     switch (type) {
     case ZMQ_STREAMER:
     case ZMQ_FORWARDER:
     case ZMQ_QUEUE:
         {          
-            void *i = fetch_socket (env, insocket);
+            void *i = fetch_socket (env, insocket_);
                 if (i == NULL) {
                     raise_exception (env, EINVAL);
                     return;
                 }
                 
-            void *o = fetch_socket (env, insocket);
+            void *o = fetch_socket (env, outsocket_);
                 if (o == NULL) {
                     raise_exception (env, EINVAL);
                     return;
                 }
 
-            int rc = zmq_device (type, insocket, outsocket);
+            int rc = zmq_device (type, i, o);
             int err = errno;
             if (rc != 0) {
                 raise_exception (env, err);
