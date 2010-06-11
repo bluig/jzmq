@@ -52,7 +52,6 @@ public class ZMQ {
     public static final int RCVBUF = 12;
 
     // Send/Recv
-    public static final int NOBLOCK = 1;
     public static final int SNDMORE = 2;
 
     // Polling types for a Poller.
